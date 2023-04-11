@@ -324,6 +324,6 @@ export class ApiService {
   getNodeOwner$(publicKey: string) {
     let params = new HttpParams()
       .set('node_public_key', publicKey);
-    return this.httpClient.get<any>(`${SERVICES_API_PREFIX}/lightning/claim/current`, { params });
+    return this.httpClient.get<any>(`${SERVICES_API_PREFIX}/lightning/claim/current`, { params, observe: 'response' });
   }
 }
