@@ -31,6 +31,7 @@ export class MempoolBlocksComponent implements OnInit, OnChanges, OnDestroy {
   @Input() getHref?: (index) => string = (index) => `/mempool-block/${index}`;
   @Input() allBlocks: boolean = false;
 
+  mempoolWidth: number = 0;
   @Output() widthChange: EventEmitter<number> = new EventEmitter();
 
   specialBlocks = specialBlocks;
@@ -116,7 +117,14 @@ export class MempoolBlocksComponent implements OnInit, OnChanges, OnDestroy {
     });
     this.reduceMempoolBlocksToFitScreen(this.mempoolBlocks);
     this.stateService.isTabHidden$.subscribe((tabHidden) => this.tabHidden = tabHidden);
-    this.loadingBlocks$ = this.stateService.isLoadingWebSocket$;
+    this.loadingBlocks$ = combineLatest([
+      this.stateService.isLoadingWebSocket$,
+      this.stateService.isLoadingMempool$
+    ]).pipe(
+      switchMap(([loadingBlocks, loadingMempool]) => {
+        return of(loadingBlocks || loadingMempool);
+      })
+    );
 
     this.mempoolBlocks$ = merge(
       of(true),
@@ -155,7 +163,11 @@ export class MempoolBlocksComponent implements OnInit, OnChanges, OnDestroy {
         }),
         tap(() => {
           this.cd.markForCheck();
-          this.widthChange.emit(this.containerOffset + this.mempoolBlocks.length * this.blockOffset);
+          const width = this.containerOffset + this.mempoolBlocks.length * this.blockOffset;
+          if (this.mempoolWidth !== width) {
+            this.mempoolWidth = width;
+            this.widthChange.emit(this.mempoolWidth);
+          }
         })
       );
 
