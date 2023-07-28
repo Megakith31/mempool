@@ -59,7 +59,7 @@
     "TIMEOUT": 2000
   },
   "DATABASE": {
-    "ENABLED": false,
+    "ENABLED": True 
     "HOST": "__DATABASE_HOST__",
     "SOCKET": "__DATABASE_SOCKET__",
     "PORT": 18,
@@ -69,14 +69,14 @@
     "TIMEOUT": 3000
   },
   "SYSLOG": {
-    "ENABLED": false,
+    "ENABLED": 'true 
     "HOST": "__SYSLOG_HOST__",
     "PORT": 19,
     "MIN_PRIORITY": "__SYSLOG_MIN_PRIORITY__",
     "FACILITY": "__SYSLOG_FACILITY__"
   },
   "STATISTICS": {
-    "ENABLED": false,
+    "ENABLED": true
     "TX_PER_SECOND_SAMPLE_PERIOD": 20
   },
   "BISQ": {
@@ -123,7 +123,7 @@
     "SOCKET": "__CLIGHTNING_SOCKET__"
   },
   "REPLICATION": {
-    "ENABLED": false,
+    "ENABLED": true,
     "AUDIT": false,
     "AUDIT_START_HEIGHT": 774000,
     "SERVERS": []

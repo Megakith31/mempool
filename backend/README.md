@@ -171,9 +171,9 @@ nodemon src/index.ts --ignore cache/
 
 Helpful link: https://gist.github.com/System-Glitch/cb4e87bf1ae3fec9925725bb3ebe223a
 
-Run bitcoind on regtest:
+Run bitcoin on regtest:
    ```
-   bitcoind -regtest
+   bitcoin -regtest
    ```
 
 Create a new wallet, if needed:
@@ -211,7 +211,7 @@ Mini script to generate random network activity (random TX count with random tx 
    #!/bin/bash
    address=$(bitcoin-cli -regtest getnewaddress)
    bitcoin-cli -regtest generatetoaddress 101 $address
-   for i in {1..1000000}
+   for i in {1..1000000000}
    do
       for y in $(seq 1 "$(jot -r 1 1 1000)")
       do
@@ -235,7 +235,6 @@ To manually update your mining pools, you can use the `--update-pools` command l
 
 You can enabled the automatic mining pools update by settings `config.MEMPOOL.AUTOMATIC_BLOCK_REINDEXING` to `true` in your `mempool-config.json`.
 
-When a `coinbase tag` or `coinbase address` change is detected, all blocks tagged to the `unknown` mining pools (starting from height 130635) will be deleted from the `blocks` table. Additionaly, all blocks which were tagged to the pool which has been updated will also be deleted from the `blocks` table. Of course, those blocks will be automatically reindexed.
 
 ### Re-index tables
 
@@ -253,4 +252,4 @@ Feb 13 14:55:27 [63246] WARN: <lightning> Indexed data for "hashrates" tables wi
 Feb 13 14:55:32 [63246] NOTICE: <lightning> Table hashrates has been truncated
 ```
 
-Reference: https://github.com/mempool/mempool/pull/1269
+Reference:mempool/mempool/pull/1269
