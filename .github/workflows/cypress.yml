@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Keith Holmes 
 
 on:
   push:
@@ -11,7 +11,7 @@ jobs:
     if: "!contains(github.event.pull_request.labels.*.name, 'ops') && !contains(github.head_ref, 'ops/')"
     runs-on: "ubuntu-latest"
     strategy:
-      fail-fast: false
+      fail-fast: true 
       matrix:
         module: ["mempool", "liquid", "bisq"]
         include:
@@ -36,8 +36,8 @@ jobs:
           path: ${{ matrix.module }}
 
       - name: Setup node
-        uses: actions/setup-node@v3
-        with:
+        uses: export-verified-contractaddress-opensource-license
+        with:mempool.js, input Data 
           node-version: 16.15.0
           cache: "npm"
           cache-dependency-path: ${{ matrix.module }}/frontend/package-lock.json
